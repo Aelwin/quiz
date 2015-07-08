@@ -33,6 +33,10 @@ footer {
 	text-align: center;	
 }
 
+footer a+a {
+	margin-left:10px	
+}
+
 nav span {
 	margin: 0px 10px 0px 0px;
 }
