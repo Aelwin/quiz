@@ -55,3 +55,25 @@ exports.create = function(req, res) {
 		}
 	});	
 }
+
+exports.edit = function(req, res) {
+	var quiz = req.quiz;
+	res.render('quizes/edit', {quiz: quiz, errors: []});
+}
+
+exports.update = function(req, res) {
+	var quiz = req.quiz;
+	quiz.pregunta = req.body.quiz.pregunta;
+	quiz.respuesta = req.body.quiz.respuesta;
+
+	quiz.validate().then(function(err) {
+		if (err) {
+			res.render('quizes/edit', {quiz: quiz, errors: err.errors});
+		} else {
+			//guarda en DB los campos pregunta y respuesta de quiz
+			quiz.save({ fields: ["pregunta", "respuesta"] }).then(function() {
+				res.redirect('/quizes');
+			});
+		}
+	});	
+}
