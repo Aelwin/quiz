@@ -47,7 +47,8 @@ exports.create = function(req, res) {
 
 	quiz.validate().then(function(err) {
 		if (err) {
-			res.render('quizes/new', {quiz: quiz, errors: err.errors});
+			var listaTemas = models.Quiz.rawAttributes.temas.values;
+			res.render('quizes/new', {quiz: quiz, listaTemas: listaTemas, errors: err.errors});
 		} else {
 			//guarda en DB los campos pregunta y respuesta de quiz
 			quiz.save({ fields: ["pregunta", "respuesta", "temas"] }).then(function() {
